@@ -3,6 +3,8 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/' } // <-- added for ksoap
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
@@ -15,9 +17,19 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/' } // <-- added for ksoap
+        maven { url 'http://wordpress-mobile.github.io/WordPress-Android' }
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
-
+allprojects {
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.7"
+        targetCompatibility = "1.7"
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

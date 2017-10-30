@@ -1,7 +1,9 @@
-package taskbook.tazahkahbar.com.taskbook2;
+package taskbook.tazahkahbar.com.taskbook2.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import taskbook.tazahkahbar.com.taskbook2.R;
 
 public class SignupActivity extends AppCompatActivity {
 
