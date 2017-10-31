@@ -105,6 +105,12 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
     private void initialize() {
         fname = this.findViewById(R.id.first_name);
         lname = this.findViewById(R.id.last_name);
