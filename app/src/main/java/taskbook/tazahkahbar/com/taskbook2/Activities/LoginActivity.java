@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                         String email = row.getString("email");
 
 
-                                        Toast.makeCustomErrorToast(c,"Login Success");
+                                        Toast.makeCustomToast(c,"Login Success");
 
 
                                         new SessionManager(c,id,fname,lname,username,email);
