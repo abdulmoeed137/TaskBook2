@@ -73,6 +73,55 @@ public class Validity {
         }
         else return true;
     }
+
+    static public boolean isFirstNameTrue(String fname, Context context)
+    {
+
+        if (fname.isEmpty()) {
+
+            setStatus("First Name Is Empty!",context);
+            return false;
+        }
+        if (fname.length()<=4)
+        {
+            setStatus("First Name too short!",context);
+            return false;
+        }
+        else return true;
+    }
+
+    static public boolean isLastNameTrue(String lname, Context context)
+    {
+
+        if (lname.isEmpty()) {
+
+            setStatus("Last Name Is Empty!",context);
+            return false;
+        }
+        if (lname.length()<=4)
+        {
+            setStatus("Last Name too short!",context);
+            return false;
+        }
+        else return true;
+    }
+
+    static public boolean isUserNameTrue(String uname, Context context)
+    {
+
+        if (uname.isEmpty()) {
+
+            setStatus("User Name Is Empty!",context);
+            return false;
+        }
+        if (uname.length()<=4)
+        {
+            setStatus("User Name too short!",context);
+            return false;
+        }
+        else return true;
+    }
+
     static public boolean isBankNameTrue(String name, Context context)
     {
 
