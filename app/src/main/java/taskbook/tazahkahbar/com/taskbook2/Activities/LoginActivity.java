@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText email,password;
     Button loginButton;
+    TextView signupButton;
     Context c;
     ProgressBar progressBar;
 
@@ -41,6 +43,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setUpComponents() {
+
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+
+                startActivity(new Intent(c, SignupActivity.class));
+                finish();
+
+            }
+        });
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +120,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+
     }
+
+
+
+
+
 
     private void initialize() {
         email = this.findViewById(R.id.email);
         password = this.findViewById(R.id.password);
         loginButton =this.findViewById(R.id.loginButton);
+        signupButton =this.findViewById(R.id.signupButton);
         c = LoginActivity.this;
         progressBar = findViewById(R.id.pbar);
         progressBar.bringToFront();

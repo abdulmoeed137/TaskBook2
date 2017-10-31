@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<ProgressBar
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:id="@+id/pbar"
-    android:visibility="gone"
-    />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/pbar"
+        android:visibility="gone"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,6 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/mid"
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
@@ -56,6 +57,8 @@
             android:id="@+id/password" />
 
 
+
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -63,15 +66,60 @@
             android:id="@+id/loginButton"
             android:layout_marginTop="10dp"
             android:textAllCaps="false"
-
             android:background="@color/subColor"
             android:textColor="@android:color/black"
             android:layout_gravity="center_horizontal"
             />
 
 
+        />
 
     </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/mid"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        >
+
+
+        <TextView
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Not Registered Yet?"
+            android:id="@+id/not"
+            android:layout_marginTop="10dp"
+
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/black"
+
+            />
+
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Please, SignUp"
+            android:id="@+id/signupButton"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/holo_red_dark"
+
+            />
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"

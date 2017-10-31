@@ -55,15 +55,17 @@ public class SignupActivity extends AppCompatActivity {
                 {
 
                     final HashMap<String, String> hashMap = new HashMap<String, String>();
-
+                    hashMap.put("first_name", _fname);
+                    hashMap.put("last_name", _lname);
                     hashMap.put("email", _email);
+                    hashMap.put("user_name", _uname);
                     hashMap.put("password", _password);
 
                     Executor executor = Executors.newSingleThreadExecutor();
                     executor.execute(new Runnable() {
                         public void run() {
 
-                            JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.login, hashMap, progressBar);
+                            JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.signup, hashMap, progressBar);
 
                             if (response != null) {
                                 Log.d("response",response+"");
@@ -71,26 +73,16 @@ public class SignupActivity extends AppCompatActivity {
 
                                     if (response.names().get(0).equals("success")) {
 
-                                        JSONObject row = response.getJSONObject("success");
-                                        //JSONObject row = data.getJSONObject(0);
-
-                                        String id = row.getString("user_id");
-                                        String fname = row.getString("first_name");
-                                        String lname = row.getString("last_name");
-                                        String username = row.getString("user_name");
-                                        String email = row.getString("email");
 
 
-                                        Toast.makeCustomToast(c,"Login Success");
+                                        Toast.makeCustomToast(c,"SignUp Successfully");
 
 
-                                        new SessionManager(c,id,fname,lname,username,email);
-
-                                        startActivity(new Intent(c, DashboardActivity.class));
+                                        startActivity(new Intent(c, LoginActivity.class));
                                         finish();
 
                                     } else if (response.names().get(0).equals("failed")) {
-                                        Toast.makeCustomErrorToast(c,"Invalid Number or Password");
+                                        Toast.makeCustomErrorToast(c,response.getString("failed"));
 
                                     } else {
                                         Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");

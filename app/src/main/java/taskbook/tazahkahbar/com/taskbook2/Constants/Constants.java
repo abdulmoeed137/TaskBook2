@@ -7,7 +7,7 @@ package taskbook.tazahkahbar.com.taskbook2.Constants;
 public class Constants {
     public  static String MAINURL = "http://funapp-programming.com/taskbook/";
     public  static String login = MAINURL+"login.php";
-    public  static String signup = MAINURL+"registration.php";
+    public  static String signup = MAINURL+"registeration.php";
 
 
 
