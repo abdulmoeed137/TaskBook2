@@ -7,6 +7,7 @@
     <color name="subColor">#f4da42</color>
     <color name="subColor2">#fbf0b3</color>
     <color name="white">#ffffff</color>
+    <color name="edt_text_bg">#fbd6a0</color>
 
     <color name="text_primary">@color/mainColor</color>
     <color name="text_secondary">@color/mainColor</color>

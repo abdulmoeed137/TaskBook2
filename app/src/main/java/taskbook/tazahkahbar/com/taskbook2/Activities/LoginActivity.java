@@ -129,12 +129,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void initialize() {
-        email = this.findViewById(R.id.email);
-        password = this.findViewById(R.id.password);
-        loginButton =this.findViewById(R.id.loginButton);
-        signupButton =this.findViewById(R.id.signupButton);
+        email = (EditText)this.findViewById(R.id.email);
+        password = (EditText)this.findViewById(R.id.password);
+        loginButton =(Button) this.findViewById(R.id.loginButton);
+        signupButton =(TextView)this.findViewById(R.id.signupButton);
         c = LoginActivity.this;
-        progressBar = findViewById(R.id.pbar);
+        progressBar=(ProgressBar) findViewById(R.id.pbar);
         progressBar.bringToFront();
     }
 }
