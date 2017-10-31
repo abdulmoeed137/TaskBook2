@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,23 +104,15 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-
     private void initialize() {
-        fname = this.findViewById(R.id.first_name);
-        lname = this.findViewById(R.id.last_name);
-        email = this.findViewById(R.id.email);
-        uname = this.findViewById(R.id.user_name);
-        password = this.findViewById(R.id.password);
-        SignupButton = this.findViewById(R.id.signupButton);
+        fname =(EditText) this.findViewById(R.id.first_name);
+        lname = (EditText)this.findViewById(R.id.last_name);
+        email =(EditText) this.findViewById(R.id.email);
+        uname = (EditText)this.findViewById(R.id.user_name);
+        password =(EditText) this.findViewById(R.id.password);
+        SignupButton = (Button)this.findViewById(R.id.signupButton);
         c = SignupActivity.this;
-        progressBar = findViewById(R.id.pbar);
+        progressBar =(ProgressBar) findViewById(R.id.pbar);
         progressBar.bringToFront();
     }
 }
