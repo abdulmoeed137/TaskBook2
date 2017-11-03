@@ -7,68 +7,76 @@
     tools:context="taskbook.tazahkahbar.com.taskbook2.Activities.MainActivity"
     android:weightSum="1"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/mainColor"
-    android:orientation="vertical"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true" >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/mainColor"
-        android:padding="13dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/bell_icon"
-            android:layout_alignParentRight="true"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/shaded_circle"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/shaded_circle"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/buzzy"
-            android:layout_centerInParent="true"/>
-
-    </RelativeLayout>
-
-    <EditText
-        android:imeOptions="flagNoExtractUi"
-        android:maxLength="12"
-        android:padding="4dp"
-        android:layout_width="230dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/edittext_bg"
-        android:drawableLeft="@drawable/microscope"
-        android:textColorHint="@color/white"
-        android:hint="Search"
-        android:textSize="15dp"
-        android:gravity="center_horizontal"
-        />
-</LinearLayout>
-
-    <taskbook.tazahkahbar.com.taskbook2.CustomBoldTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/subColor"
-        android:gravity="center_horizontal"
-        android:padding="5dp"
-        android:text="Challenge Of The Week"
-        android:textSize="18dp"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
-
-    <ListView
-        android:id="@+id/mListView"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="2dp"></ListView>
+
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        ></FrameLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_gravity="bottom"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:weightSum="3"
+    android:id="@+id/footer">
+
+
+    <LinearLayout
+        android:id="@+id/footer_home_button"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/mainColor"
+        android:layout_weight="0.95">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tab_home_ico"
+            android:layout_gravity="center"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footer_tick_button"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/mainColor"
+        android:layout_marginRight="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_weight="1.1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tab_tick_ico"
+            android:layout_gravity="center"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footer_bee_button"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/mainColor"
+        android:layout_weight="0.95">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tab_bee_ico"
+            android:layout_gravity="center"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
 </LinearLayout>

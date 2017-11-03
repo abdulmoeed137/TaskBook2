@@ -1,31 +1,37 @@
-package taskbook.tazahkahbar.com.taskbook2.Activities;
+package taskbook.tazahkahbar.com.taskbook2.Fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import taskbook.tazahkahbar.com.taskbook2.Fragments.CheckedFragment;
-import taskbook.tazahkahbar.com.taskbook2.Fragments.UncheckedFragment;
 import taskbook.tazahkahbar.com.taskbook2.R;
 
-public class ProfileActivity extends AppCompatActivity {
+/**
+ * Created by lenovo on 11/1/2017.
+ */
+
+public class ProfileFragment extends Fragment
+{
+    View rootView;
+
+    Context c;
 
     TextView button_checked, button_unchecked;
     LinearLayout linear_checked, linear_unchecked;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         initialize();
         setUpComponents();
+        return rootView;
     }
 
     private void setUpComponents() {
@@ -62,18 +68,19 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void initialize() {
 
-        button_checked= (TextView)this.findViewById(R.id.button_checked);
+        c= getActivity();
+        button_checked= (TextView)rootView.findViewById(R.id.button_checked);
 
-        button_unchecked = (TextView)this.findViewById(R.id.button_unchecked);
+        button_unchecked = (TextView)rootView.findViewById(R.id.button_unchecked);
 
-        linear_checked = (LinearLayout)this.findViewById(R.id.linear_checked);
+        linear_checked = (LinearLayout)rootView.findViewById(R.id.linear_checked);
 
-        linear_unchecked = (LinearLayout)this.findViewById(R.id.linear_unchecked);
-
+        linear_unchecked = (LinearLayout)rootView.findViewById(R.id.linear_unchecked);
     }
 
     private void loadFragment(Fragment fragment) {

@@ -12,10 +12,10 @@ import taskbook.tazahkahbar.com.taskbook2.R;
  * Created by lenovo on 10/31/2017.
  */
 
-public class DashboardAdapter extends BaseAdapter {
+public class HomeAdapter extends BaseAdapter {
     Context context;
     LayoutInflater inflater;
-    public  DashboardAdapter (Context c)
+    public HomeAdapter(Context c)
     {
         context = c;
         inflater = LayoutInflater.from(c);

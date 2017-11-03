@@ -26,11 +26,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/bell_icon"
             android:layout_alignParentRight="true"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/shaded_circle"
-            android:layout_alignParentLeft="true"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

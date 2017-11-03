@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="taskbook.tazahkahbar.com.taskbook2.Activities.MainActivity"
+    android:weightSum="1"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/mainColor"
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/mainColor"
+        android:padding="13dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/bell_icon"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/buzzy"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:imeOptions="flagNoExtractUi"
+        android:maxLength="12"
+        android:padding="4dp"
+        android:layout_width="230dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext_bg"
+        android:drawableLeft="@drawable/microscope"
+        android:textColorHint="@color/white"
+        android:hint="Search"
+        android:textSize="15dp"
+        android:gravity="center_horizontal"
+        />
+</LinearLayout>
+
+    <taskbook.tazahkahbar.com.taskbook2.CustomBoldTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/subColor"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="Challenge Of The Week"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/mListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="2dp"></ListView>
+</LinearLayout>
