@@ -42,6 +42,130 @@ public class SignupActivity extends AppCompatActivity {
 
     private void setUpComponents() {
 
+
+   email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+       @Override
+       public void onFocusChange(View v, boolean hasFocus)
+       {
+           String _email = email.getText().toString();
+
+           if (!_email.isEmpty())
+           {
+               if (Validity.isEmailTrue(_email,c))
+               {
+
+                   final HashMap<String, String> hashMap = new HashMap<String, String>();
+                   hashMap.put("email", _email);
+
+
+                   Executor executor = Executors.newSingleThreadExecutor();
+                   executor.execute(new Runnable() {
+                       public void run() {
+
+                           JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.emailcheck, hashMap, progressBar);
+
+                           if (response != null) {
+                               Log.d("response",response+"");
+                               try {
+
+                                   if (response.names().get(0).equals("success")) {
+
+
+
+                                       Toast.makeCustomErrorToast(c,response.getString("success"));
+
+
+
+
+                                   } else if (response.names().get(0).equals("failed")) {
+                                       Toast.makeCustomErrorToast(c,response.getString("failed"));
+
+                                   } else {
+                                       Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
+                                   }
+                               } catch (JSONException e) {
+                                   Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
+
+                               }
+                           }
+
+                       }
+                   });
+
+
+               }
+           }
+
+
+       }
+   });
+
+
+
+
+
+        uname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                String _uname = uname.getText().toString();
+
+                if (!_uname.isEmpty())
+                {
+                    if (Validity.isUserNameTrue(_uname,c))
+                    {
+
+                        final HashMap<String, String> hashMap = new HashMap<String, String>();
+                        hashMap.put("user_name", _uname);
+
+
+                        Executor executor = Executors.newSingleThreadExecutor();
+                        executor.execute(new Runnable() {
+                            public void run() {
+
+                                JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.usernamecheck, hashMap, progressBar);
+
+                                if (response != null) {
+                                    Log.d("response",response+"");
+                                    try {
+
+                                        if (response.names().get(0).equals("success")) {
+
+
+
+                                            Toast.makeCustomErrorToast(c,response.getString("success"));
+
+
+
+
+                                        } else if (response.names().get(0).equals("failed")) {
+                                            Toast.makeCustomErrorToast(c,response.getString("failed"));
+
+                                        } else {
+                                            Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
+                                        }
+                                    } catch (JSONException e) {
+                                        Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
+
+                                    }
+                                }
+
+                            }
+                        });
+
+
+                    }
+                }
+
+
+            }
+        });
+
+
+
+
+
+
         SignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
