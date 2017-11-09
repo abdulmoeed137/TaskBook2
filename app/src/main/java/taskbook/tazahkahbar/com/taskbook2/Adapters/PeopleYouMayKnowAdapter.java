@@ -1,10 +1,12 @@
 package taskbook.tazahkahbar.com.taskbook2.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseError;
@@ -13,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import taskbook.tazahkahbar.com.taskbook2.Activities.PeopleYouMayKnowActivity;
+import taskbook.tazahkahbar.com.taskbook2.Activities.ProfileActivity;
 import taskbook.tazahkahbar.com.taskbook2.Holder.Peopleyoumayknowholder;
 import taskbook.tazahkahbar.com.taskbook2.Model.PeopleyoumayknowModel;
 import taskbook.tazahkahbar.com.taskbook2.R;
@@ -64,6 +68,7 @@ public class PeopleYouMayKnowAdapter extends BaseAdapter {
 
             holder.name = (TextView)convertView.findViewById(R.id.username);
             holder.button_follow = (TextView)convertView.findViewById(R.id.button_follow);
+            holder.image = (ImageView) convertView.findViewById(R.id.image);
             convertView.setTag(holder);
 
         }else
@@ -72,6 +77,7 @@ public class PeopleYouMayKnowAdapter extends BaseAdapter {
         holder.name.setText(item.getUsername());
 
         final View finalConvertView = convertView;
+
         holder.button_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,8 +99,26 @@ public class PeopleYouMayKnowAdapter extends BaseAdapter {
                 });
 
 
+
             }
         });
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                Toast.makeCustomToast(context, "User Profile ");
+
+                Intent intent = new Intent(context,ProfileActivity.class);
+                intent.putExtra("id", item.getId());
+                context.startActivity(intent);
+
+
+            }
+        });
+
         return convertView;
     }
 }
