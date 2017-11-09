@@ -102,8 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                                           String username=   dataSnapshot.child("username").getValue().toString();
-                                            String firstname = dataSnapshot.child("first_name").getValue().toString();
-                                            String lastname = dataSnapshot.child("last_name").getValue().toString();
+                                            String firstname = dataSnapshot.child("firstname").getValue().toString();
+                                            String lastname = dataSnapshot.child("lastname").getValue().toString();
                                             new SessionManager(c,user_id,firstname,lastname,username,_email);
                                             Toast.makeCustomToast(c, "Login Success");
                                             finish();
