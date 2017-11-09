@@ -3,6 +3,7 @@ package taskbook.tazahkahbar.com.taskbook2.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,9 +32,11 @@ import java.util.concurrent.Executors;
 
 import taskbook.tazahkahbar.com.taskbook2.Constants.Constants;
 import taskbook.tazahkahbar.com.taskbook2.HttpRequest.HttpRequest;
+import taskbook.tazahkahbar.com.taskbook2.Model.SignUpModel;
 import taskbook.tazahkahbar.com.taskbook2.R;
 import taskbook.tazahkahbar.com.taskbook2.SessionManager.SessionManager;
 import taskbook.tazahkahbar.com.taskbook2.Toast.Toast;
+import taskbook.tazahkahbar.com.taskbook2.Utilities.utils;
 import taskbook.tazahkahbar.com.taskbook2.Validity.Validity;
 
 public class SignupActivity extends AppCompatActivity {
@@ -31,7 +45,9 @@ public class SignupActivity extends AppCompatActivity {
     Button SignupButton;
     Context c;
     ProgressBar progressBar;
-
+    FirebaseAuth firebaseAuth;
+    DatabaseReference ref ;
+    int user_validity = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,186 +58,101 @@ public class SignupActivity extends AppCompatActivity {
 
     private void setUpComponents() {
 
-
-   email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-       @Override
-       public void onFocusChange(View v, boolean hasFocus)
-       {
-           String _email = email.getText().toString();
-
-           if (!_email.isEmpty())
-           {
-               if (Validity.isEmailTrue(_email,c))
-               {
-
-                   final HashMap<String, String> hashMap = new HashMap<String, String>();
-                   hashMap.put("email", _email);
-
-
-                   Executor executor = Executors.newSingleThreadExecutor();
-                   executor.execute(new Runnable() {
-                       public void run() {
-
-                           JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.emailcheck, hashMap, progressBar);
-
-                           if (response != null) {
-                               Log.d("response",response+"");
-                               try {
-
-                                   if (response.names().get(0).equals("success")) {
-
-
-
-                                       Toast.makeCustomErrorToast(c,response.getString("success"));
-
-
-
-
-                                   } else if (response.names().get(0).equals("failed")) {
-                                       Toast.makeCustomErrorToast(c,response.getString("failed"));
-
-                                   } else {
-                                       Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
-                                   }
-                               } catch (JSONException e) {
-                                   Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
-
-                               }
-                           }
-
-                       }
-                   });
-
-
-               }
-           }
-
-
-       }
-   });
-
-
-
-
-
         uname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
+            public void onFocusChange(View v, boolean hasFocus) {
                 String _uname = uname.getText().toString();
-
-                if (!_uname.isEmpty())
+                if (!_uname.trim().isEmpty())
                 {
-                    if (Validity.isUserNameTrue(_uname,c))
+                    if (_uname.length()>4)
                     {
+                        if (!hasFocus){
+                            utils.ProgressStart(progressBar,c);
 
-                        final HashMap<String, String> hashMap = new HashMap<String, String>();
-                        hashMap.put("user_name", _uname);
+                            ref.child("usernames").child(_uname).addListenerForSingleValueEvent(new ValueEventListener() {
 
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists())
+                                    {
+                                        utils.ProgressEnd(progressBar,c);
+                                        Toast.makeCustomErrorToast(c,"Username Already Exist");
+                                        user_validity = 0;
 
-                        Executor executor = Executors.newSingleThreadExecutor();
-                        executor.execute(new Runnable() {
-                            public void run() {
-
-                                JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.usernamecheck, hashMap, progressBar);
-
-                                if (response != null) {
-                                    Log.d("response",response+"");
-                                    try {
-
-                                        if (response.names().get(0).equals("success")) {
-
-
-
-                                            Toast.makeCustomErrorToast(c,response.getString("success"));
-
-
-
-
-                                        } else if (response.names().get(0).equals("failed")) {
-                                            Toast.makeCustomErrorToast(c,response.getString("failed"));
-
-                                        } else {
-                                            Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
-                                        }
-                                    } catch (JSONException e) {
-                                        Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
-
+                                    }
+                                    else
+                                    {
+                                        Toast.makeCustomToast(c,"Username Available");
+                                        user_validity = 1;
+                                        utils.ProgressEnd(progressBar,c);
                                     }
                                 }
 
-                            }
-                        });
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-
-                    }
+                                    Toast.makeCustomErrorToast(c,databaseError.getMessage().toString());
+                                    utils.ProgressEnd(progressBar,c);
+                                }
+                            });
+                        }}
+                    else
+                        Toast.makeCustomErrorToast(c,"Username length must be grater then 4");
                 }
-
-
             }
         });
 
-
-
-
-
-
         SignupButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                String _fname = fname.getText().toString();
-                String _lname = lname.getText().toString();
-                String _email = email.getText().toString();
-                String _uname = uname.getText().toString();
+
+                final String _fname = fname.getText().toString();
+                final String _lname = lname.getText().toString();
+                final String _email = email.getText().toString();
+                final String _uname = uname.getText().toString();
                 String _password = password.getText().toString();
 
                 if (Validity.isFirstNameTrue(_fname,c) &&  Validity.isLastNameTrue(_lname,c)  && Validity.isEmailTrue(_email,c)
                         && Validity.isUserNameTrue(_uname,c) && Validity.isPasswordTrue(_password,c))
                 {
 
-                    final HashMap<String, String> hashMap = new HashMap<String, String>();
-                    hashMap.put("first_name", _fname);
-                    hashMap.put("last_name", _lname);
-                    hashMap.put("email", _email);
-                    hashMap.put("user_name", _uname);
-                    hashMap.put("password", _password);
+                    if (user_validity == 1){
+                        utils.ProgressStart(progressBar,c);
+                        firebaseAuth.createUserWithEmailAndPassword(_email,_password)
+                                .addOnCompleteListener(SignupActivity.this,new OnCompleteListener<AuthResult>() {
 
-                    Executor executor = Executors.newSingleThreadExecutor();
-                    executor.execute(new Runnable() {
-                        public void run() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            JSONObject response = HttpRequest.SyncHttpRequest(c, Constants.signup, hashMap, progressBar);
+                                        if (task.isSuccessful())
+                                        {
 
-                            if (response != null) {
-                                Log.d("response",response+"");
-                                try {
+                                            String user_id = task.getResult().getUser().getUid();
 
-                                    if (response.names().get(0).equals("success")) {
+                                            ref.child("user_profile").child(user_id).setValue(new SignUpModel(_uname,_fname,_lname));
+                                            ref.child("usernames").child(_uname).setValue("taken");
+                                            utils.ProgressEnd(progressBar,c);
 
+                                            new SessionManager(c,user_id,_fname,_lname,_uname,_email);
+                                            Toast.makeCustomToast(c, "Registered Successfully");
+                                            finish();
+                                            startActivity(new Intent(c,PeopleYouMayKnowActivity.class));
 
-
-                                        Toast.makeCustomToast(c,"SignUp Successfully");
-
-
-                                        startActivity(new Intent(c, LoginActivity.class));
-                                        finish();
-
-                                    } else if (response.names().get(0).equals("failed")) {
-                                        Toast.makeCustomErrorToast(c,response.getString("failed"));
-
-                                    } else {
-                                        Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
+                                        }
+                                        else{
+                                            Toast.makeCustomToast(c,task.getException().getMessage().toString());
+                                            utils.ProgressEnd(progressBar,c);}
                                     }
-                                } catch (JSONException e) {
-                                    Toast.makeCustomErrorToast(c,"Server Maintenance is on Progress");
+                                });
 
-                                }
-                            }
-
-                        }
-                    });
-
+                    }
+                    else
+                    {
+                        Toast.makeCustomErrorToast(c,"Please choose correct username");
+                    }
                 }
+
             }
         });
 
@@ -229,6 +160,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void initialize() {
+        firebaseAuth = FirebaseAuth.getInstance();
         fname =(EditText) this.findViewById(R.id.first_name);
         lname = (EditText)this.findViewById(R.id.last_name);
         email =(EditText) this.findViewById(R.id.email);
@@ -238,5 +170,7 @@ public class SignupActivity extends AppCompatActivity {
         c = SignupActivity.this;
         progressBar =(ProgressBar) findViewById(R.id.pbar);
         progressBar.bringToFront();
+        ref = FirebaseDatabase.getInstance().getReference();
+
     }
 }

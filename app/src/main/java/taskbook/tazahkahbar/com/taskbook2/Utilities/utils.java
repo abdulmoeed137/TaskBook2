@@ -1,12 +1,15 @@
 package taskbook.tazahkahbar.com.taskbook2.Utilities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-
+import android.widget.ProgressBar;
 
 
 import java.io.ByteArrayOutputStream;
@@ -130,4 +133,24 @@ public class utils {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
-    }}
+    }
+
+        public static void ProgressStart(ProgressBar progressBar, Context context)
+        {
+            progressBar.setVisibility(View.VISIBLE);
+            try {
+                ((Activity)context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+            catch ( Exception e ) {}
+        }
+    public static void ProgressEnd(ProgressBar progressBar, Context context)
+    {
+        progressBar.setVisibility(View.GONE);
+        try {
+            ((Activity)context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        catch ( Exception e ) {}
+    }
+
+}
