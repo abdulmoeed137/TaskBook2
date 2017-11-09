@@ -152,6 +152,21 @@ public class Validity {
         }
         else return true;
     }
+    static public boolean isPostTrue(String name, Context context)
+    {
+
+        if (name.isEmpty()) {
+
+            setStatus("Post Is Empty!",context);
+            return false;
+        }
+        if (name.length()<=4)
+        {
+            setStatus("Title too short!",context);
+            return false;
+        }
+        else return true;
+    }
     static public boolean isAccNumberTrue(String name, Context context)
     {
 
