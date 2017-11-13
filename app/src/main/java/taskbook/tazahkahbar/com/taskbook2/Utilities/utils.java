@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -23,6 +24,7 @@ import java.util.HashMap;
  */
 
 public class utils {
+    static public ArrayList<String> like_list = new ArrayList<>();
     static public String URLwithParams (String url , HashMap<String,String> hashMap)
     {
 

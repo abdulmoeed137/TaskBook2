@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="taskbook.tazahkahbar.com.taskbook2.Activities.MainActivity"
-    android:weightSum="1"
+    tools:context="taskbook.tazahkahbar.com.taskbook2.Activities.MainActivity">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/pbar"
+        android:visibility="gone"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -66,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hesham Bakhashawain"
+            android:id="@+id/name"
             android:textStyle="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -176,3 +184,4 @@
     </LinearLayout>
 </LinearLayout>
 </LinearLayout>
+</RelativeLayout>

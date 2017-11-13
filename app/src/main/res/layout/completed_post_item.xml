@@ -66,7 +66,7 @@
 
                     <taskbook.tazahkahbar.com.taskbook2.CustomBoldTextView
                         android:layout_marginLeft="20dp"
-                        android:id="@+id/name"
+                        android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="0dp"
@@ -82,7 +82,7 @@
                         android:text="Getting Bogy In Shape Before this Summer"
                         android:textSize="15dp"
                         android:textColor="@color/fbutton_color_wet_asphalt"
-                        android:id="@+id/contact" />
+                        android:id="@+id/post" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="6K"
+                                    android:id="@+id/like_text"
                                     android:gravity="center"
                                     android:layout_gravity="center"/>
 
@@ -123,6 +124,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="16K"
+                                android:id="@+id/comment_text"
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="10dp"/>

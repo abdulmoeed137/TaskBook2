@@ -40,7 +40,7 @@
 
         </activity>
 
-<activity android:name=".Activities.ProfileActivity"></activity>
+<activity android:name=".Activities.ProfileActivityFromPYMN"></activity>
 
     </application>
 

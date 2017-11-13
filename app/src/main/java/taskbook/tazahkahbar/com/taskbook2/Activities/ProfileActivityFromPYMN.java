@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,17 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import taskbook.tazahkahbar.com.taskbook2.Adapters.PeopleYouMayKnowAdapter;
 import taskbook.tazahkahbar.com.taskbook2.Fragments.CheckedFragment;
 import taskbook.tazahkahbar.com.taskbook2.Fragments.UncheckedFragment;
-import taskbook.tazahkahbar.com.taskbook2.Model.PeopleyoumayknowModel;
 import taskbook.tazahkahbar.com.taskbook2.R;
-import taskbook.tazahkahbar.com.taskbook2.SessionManager.SessionManager;
 import taskbook.tazahkahbar.com.taskbook2.Toast.Toast;
 
-import static android.R.id.list;
-
-public class ProfileActivity extends AppCompatActivity
+public class ProfileActivityFromPYMN extends AppCompatActivity
 {
 
     Context c;
@@ -35,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity
     TextView button_checked, button_unchecked;
     LinearLayout linear_checked, linear_unchecked;
     DatabaseReference ref ;
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,35 +46,39 @@ public class ProfileActivity extends AppCompatActivity
 
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("id");
-        String name = bundle.getString("name");
 
      /*   TextView txtView = (TextView) findViewById(R.id.name);
         txtView.setText(id);*/
 
-
+        progressBar.setVisibility(View.VISIBLE);
         ref.child("user_profile").child(id).addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("new data", "onDataChange: "+dataSnapshot);
 
+                progressBar.setVisibility(View.GONE);
+
                 String uname =   dataSnapshot.child("username").getValue().toString();
                 String fname = dataSnapshot.child("firstname").getValue().toString();
                 String lname = dataSnapshot.child("lastname").getValue().toString();
 
                 TextView txtView1 = (TextView) findViewById(R.id.name);
-                txtView1.setText(fname);
+                txtView1.setText(fname+" "+ lname);
 
                 TextView txtView2 = (TextView) findViewById(R.id.username);
                 txtView2.setText(uname);
+
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                progressBar.setVisibility(View.GONE);
                 Toast.makeCustomErrorToast(c,databaseError.getMessage().toString());
             }
+
         });
 
 
@@ -121,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity
 
     private void initialize() {
 
-        c = ProfileActivity.this;
+        c = ProfileActivityFromPYMN.this;
 
         ref = FirebaseDatabase.getInstance().getReference();
 
@@ -132,6 +132,10 @@ public class ProfileActivity extends AppCompatActivity
         linear_checked = (LinearLayout)findViewById(R.id.linear_checked);
 
         linear_unchecked = (LinearLayout)findViewById(R.id.linear_unchecked);
+
+        progressBar = (ProgressBar)findViewById(R.id.pbar);
+        progressBar.bringToFront();
+
     }
 
     private void loadFragment(Fragment fragment) {
@@ -142,6 +146,7 @@ public class ProfileActivity extends AppCompatActivity
 // replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.frame, fragment);
         fragmentTransaction.commit(); // save the changes
+
     }
 
 }

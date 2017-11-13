@@ -162,7 +162,7 @@ public class Validity {
         }
         if (name.length()<=4)
         {
-            setStatus("Title too short!",context);
+            setStatus("Post too short!",context);
             return false;
         }
         else return true;

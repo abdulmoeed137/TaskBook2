@@ -3,14 +3,27 @@ package taskbook.tazahkahbar.com.taskbook2.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import taskbook.tazahkahbar.com.taskbook2.Adapters.CheckedAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import taskbook.tazahkahbar.com.taskbook2.Adapters.UncheckedAdapter;
+import taskbook.tazahkahbar.com.taskbook2.Model.PostModel;
 import taskbook.tazahkahbar.com.taskbook2.R;
+import taskbook.tazahkahbar.com.taskbook2.SessionManager.SessionManager;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by lenovo on 11/1/2017.
@@ -21,6 +34,9 @@ public class UncheckedFragment extends Fragment
     View rootView;
     ListView listview;
     Context c;
+    ArrayList<PostModel> list = new ArrayList<>();
+    DatabaseReference ref ;
+    UncheckedAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,11 +48,45 @@ public class UncheckedFragment extends Fragment
     }
 
     private void setUpComponents() {
-        listview.setAdapter(new UncheckedAdapter(c));
+        listview.setAdapter(adapter);
+//        Log.d(TAG, "setUpComponents: "+new SessionManager(c).getId());
+        ref.child("posts").child(new SessionManager(c).getId()).orderByValue().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                list.clear();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
+                  String post = postSnapshot.child("post").getValue().toString();
+                   String username = new SessionManager(c).getUsername();
+                    String post_id = postSnapshot.getKey().toString();
+                    String status = postSnapshot.child("status").getValue().toString();
+                    Log.d(TAG, "onDataChange: "+status);
+                    if (status.equals("0")) {
+
+                        list.add(new PostModel(username, post, post_id, "", ""));
+
+                    }
+
+                }
+                Collections.reverse(list);
+              adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //listview.setAdapter(new UncheckedAdapter(c));
     }
 
     private void initialize() {
         listview = (ListView)rootView.findViewById(R.id.mListView);
         c= getActivity();
+        ref = FirebaseDatabase.getInstance().getReference();
+        adapter = new UncheckedAdapter(c,list);
     }
 }

@@ -1,6 +1,7 @@
 package taskbook.tazahkahbar.com.taskbook2.Holder;
 
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -10,4 +11,5 @@ import android.widget.TextView;
 public class Peopleyoumayknowholder {
     public TextView name,button_follow;
     public ImageView image;
+    public ProgressBar progressBar;
 }
