@@ -67,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity
                 String lname = dataSnapshot.child("lastname").getValue().toString();
 
                 TextView txtView1 = (TextView) findViewById(R.id.name);
-                txtView1.setText(fname);
+                txtView1.setText(fname+" "+lname);
 
                 TextView txtView2 = (TextView) findViewById(R.id.username);
                 txtView2.setText(uname);

@@ -86,6 +86,9 @@ public class UncheckedAdapter extends BaseAdapter {
         ref.child("post_like").child(item.getPost_id()).child(new SessionManager(context).getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
                 if (dataSnapshot.exists())
                 {
                     holder.like_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.like_yes));
