@@ -36,11 +36,13 @@ public class ProfileFragment extends Fragment
 
     private void setUpComponents() {
 
-        loadFragment(new CheckedFragment());
+   autofragment();
 
         button_unchecked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 loadFragment(new UncheckedFragment());
 
@@ -92,4 +94,19 @@ public class ProfileFragment extends Fragment
         fragmentTransaction.replace(R.id.frame, fragment);
         fragmentTransaction.commit(); // save the changes
     }
+
+void autofragment()
+{
+
+    loadFragment(new UncheckedFragment());
+
+    linear_unchecked.setBackground(getResources().getDrawable(R.drawable.rounded_bg_yellow_right_rounded));
+    button_unchecked.setTextColor(getResources().getColor(R.color.white));
+
+    linear_checked.setBackground(getResources().getDrawable(R.drawable.rounded_bg_white_left_rounded));
+    button_checked.setTextColor(getResources().getColor(R.color.mainColor));
+
+}
+
+
 }

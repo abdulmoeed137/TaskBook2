@@ -1,14 +1,20 @@
 package taskbook.tazahkahbar.com.taskbook2.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +38,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class UncheckedAdapter extends BaseAdapter {
+    Animation animFadein;
     Context context;
     LayoutInflater inflater;
     ArrayList<PostModel> list = new ArrayList<>();
@@ -107,12 +114,17 @@ public class UncheckedAdapter extends BaseAdapter {
         holder.like_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                if (!item.getIsLike()){
                 ref.child("post_like").child(item.getPost_id()).child(new SessionManager(context).getId()).setValue("like", new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if (databaseError == null ){
-                        holder.like_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.like_yes));
+                            //kkkk
+                            animFadein = AnimationUtils.loadAnimation(context.getApplicationContext(),
+                                    R.anim.fade_in);
+
+                            holder.like_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.like_yes));
                         item.setIsLike(true);}
                     }
                 });
@@ -123,6 +135,8 @@ public class UncheckedAdapter extends BaseAdapter {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if (databaseError == null ){
+                            //kkkk
+                            ((Activity)context).overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                             holder.like_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.like_ico));
                         item.setIsLike(false);}
                     }
